@@ -69,7 +69,7 @@ INIT_STATEMENTS = [
         HAS_AUDIO     VARCHAR(20),
         IS_TRANSPARENT  VARCHAR(20),
         HAS_PSU         VARCHAR(20),
-        EQ_ID         INTEGER REFERENCES EQUIPMENT (EQ_ID),
+        EQ_ID         INTEGER REFERENCES EQUIPMENT (EQ_ID)
     )
     """,
 
@@ -78,7 +78,7 @@ INIT_STATEMENTS = [
         COOLER_TYPE     VARCHAR(50),
         COOLER_SIZE     VARCHAR(50),
         LED_COLOR       VARCHAR(20),
-        EQ_ID         INTEGER REFERENCES EQUIPMENT (EQ_ID),
+        EQ_ID         INTEGER REFERENCES EQUIPMENT (EQ_ID)
     )
     """,   
         
@@ -87,7 +87,7 @@ INIT_STATEMENTS = [
         USAGE_AREA    VARCHAR(50),
         HEADSET_TYPE  VARCHAR(50),
         HAS_MIC       VARCHAR(20),
-        EQ_ID         INTEGER REFERENCES EQUIPMENT (EQ_ID),
+        EQ_ID         INTEGER REFERENCES EQUIPMENT (EQ_ID)
     )
     """,   
         
@@ -97,7 +97,7 @@ INIT_STATEMENTS = [
         KEY_SEQUENCE     VARCHAR(20),
         IS_MECHANIC      VARCHAR(20),
         IS_RGB           VARCHAR(20),
-        EQ_ID         INTEGER REFERENCES EQUIPMENT (EQ_ID),
+        EQ_ID         INTEGER REFERENCES EQUIPMENT (EQ_ID)
     )
     """,  
 
@@ -106,7 +106,7 @@ INIT_STATEMENTS = [
         SCREEN_SIZE    VARCHAR(20),
         RESOLUTION     VARCHAR(20),
         REFRESH_RATE   VARCHAR(20),
-        EQ_ID         INTEGER REFERENCES EQUIPMENT (EQ_ID),
+        EQ_ID         INTEGER REFERENCES EQUIPMENT (EQ_ID)
     )
     """,
 
@@ -117,7 +117,7 @@ INIT_STATEMENTS = [
         RAM_SLOT_NUMBER     SMALLINT,
         SOCKET_TYPE         VARCHAR(20),
         RAM_FRE_SPEED       VARCHAR(50),
-        EQ_ID         INTEGER REFERENCES EQUIPMENT (EQ_ID),
+        EQ_ID         INTEGER REFERENCES EQUIPMENT (EQ_ID)
     )
     """,
 
@@ -126,7 +126,7 @@ INIT_STATEMENTS = [
         MOUSE_TYPE     VARCHAR(50),
         DPI            VARCHAR(20),
         BUTTONS        SMALLINT,
-        EQ_ID         INTEGER REFERENCES EQUIPMENT (EQ_ID),
+        EQ_ID         INTEGER REFERENCES EQUIPMENT (EQ_ID)
     )
     """,
 
@@ -135,7 +135,7 @@ INIT_STATEMENTS = [
         POWER_W     VARCHAR(30),
         POWER_TYPE     VARCHAR(30),
         SATA_CONNECTION  VARCHAR(30),
-        EQ_ID         INTEGER REFERENCES EQUIPMENT (EQ_ID),
+        EQ_ID         INTEGER REFERENCES EQUIPMENT (EQ_ID)
     )
     """,
 
@@ -144,7 +144,7 @@ INIT_STATEMENTS = [
         MODEL     VARCHAR(30),
         FRE_SPEED     VARCHAR(20),
         CORE_NUMBER  SMALLINT,
-        EQ_ID         INTEGER REFERENCES EQUIPMENT (EQ_ID),
+        EQ_ID         INTEGER REFERENCES EQUIPMENT (EQ_ID)
     )
     
     """,
@@ -154,7 +154,7 @@ INIT_STATEMENTS = [
         RAM_TYPE     VARCHAR(50),
         CAPACITY     VARCHAR(20),
         FRE_SPEED    VARCHAR(20),
-        EQ_ID         INTEGER REFERENCES EQUIPMENT (EQ_ID),
+        EQ_ID         INTEGER REFERENCES EQUIPMENT (EQ_ID)
     )
     """,
 
@@ -164,7 +164,7 @@ INIT_STATEMENTS = [
         CORE_SPEED      VARCHAR(20),
         GPU_MODEL       VARCHAR(50),
         MANUFACTURER    VARCHAR(20),
-        EQ_ID         INTEGER REFERENCES EQUIPMENT (EQ_ID),
+        EQ_ID         INTEGER REFERENCES EQUIPMENT (EQ_ID)
     )
     """,
 
@@ -198,7 +198,7 @@ INIT_STATEMENTS = [
         EXPLANATION          VARCHAR(500),
         IS_ACTIVE            BOOLEAN DEFAULT TRUE,
         SUPP_ID              INTEGER REFERENCES SUPPLIER (SUPP_ID),
-        FOREIGN KEY          (EQ_ID) REFERENCES EQUIPMENT (EQ_ID),
+        FOREIGN KEY          (EQ_ID) REFERENCES EQUIPMENT (EQ_ID)
     )
     """,
 
