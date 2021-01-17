@@ -6,6 +6,6 @@ class Category(baseClass):
         super().__init__("CATEGORY", CategoryObj)
 
     def add(self, cat_name):
-        query = "INSERT INTO CATEGORY (CATEGORY_NAME) VALUES (%s)"
+        query = "INSERT INTO CATEGORY (CAT_NAME) VALUES (%s)"
         fill = (cat_name)
         self.execute(query, fill)

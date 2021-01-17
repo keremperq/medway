@@ -14,3 +14,4 @@ class Customer(baseClass):
         fill = (*values, )
         last_customer_id = (self.execute(query, fill, True))[0][0]
         return last_customer_id if last_customer_id is not None else -1
+    

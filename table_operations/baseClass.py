@@ -2,7 +2,7 @@ import os
 import sys
 import psycopg2 as dbapi2
 
-url = os.getenv("DATABASE_URL")
+url = "dbname='postgres' user='postgres' host='localhost' password='2357'"
 if url is None:
     print("Usage: DATABASE_URL=url python database.py", file=sys.stderr)
     sys.exit(1)

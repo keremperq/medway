@@ -1,7 +1,7 @@
 from Flask_WTF import FlaskForm
-from WTForms import SelectField, StringField, PasswordField, SubmitField, BooleanField, TextAreaField
+from WTForms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
 from WTForms.validators import InputRequired, Length, Email, Optional
-from WTForms.fields.html5 import DateField
+
 
 class LoginForm(FlaskForm):
     username = StringField("Username", validators=[InputRequired("Please enter your username"), Length(5, 30)], id='username')
