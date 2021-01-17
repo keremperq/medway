@@ -1,0 +1,20 @@
+* text=auto eol=lf
+
+*.txt text
+*.py text
+*.c text
+*.cpp text
+*.h text
+*.hpp text
+*.rst text
+*.html text
+*.json text
+*.bat text
+*.yml text
+*.js text
+*.css text
+Procfile text
+Dockerfile text
+Makefile text
+.gitignore text
+.gitattributes text
