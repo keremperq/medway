@@ -191,13 +191,14 @@ INIT_STATEMENTS = [
 
     """
     CREATE TABLE IF NOT EXISTS PRODUCT (
-        EQ_ID                INTEGER REFERENCES EQUIPMENT (EQ_ID),
+        EQ_ID                INTEGER REFERENCES EQUIPMENT(EQ_ID),
         REMAINING            SMALLINT NOT NULL DEFAULT 0,
         PRICE                FLOAT,
         NUMBER_OF_SELLS      SMALLINT DEFAULT 0,
         EXPLANATION          VARCHAR(500),
         IS_ACTIVE            BOOLEAN DEFAULT TRUE,
-        SUPP_ID              INTEGER REFERENCES SUPPLIER (SUPP_ID)
+        SUPP_ID              INTEGER REFERENCES SUPPLIER (SUPP_ID),
+        PRIMARY KEY          (EQ_ID)
     )
     """,
 
@@ -207,7 +208,8 @@ INIT_STATEMENTS = [
         PIECE           SMALLINT DEFAULT 1,
         DISCOUNT        FLOAT,
         UNIT_PRICE      FLOAT,
-        EQ_ID           INTEGER REFERENCES PRODUCT (EQ_ID),
+        EQ_ID           INTEGER,
+        FOREIGN KEY     (EQ_ID) REFERENCES PRODUCT (EQ_ID),
         PRIMARY KEY     (TRANSACTION_ID, EQ_ID)
     )
     """,  
