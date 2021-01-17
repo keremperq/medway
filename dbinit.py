@@ -208,8 +208,7 @@ INIT_STATEMENTS = [
         PIECE           SMALLINT DEFAULT 1,
         DISCOUNT        FLOAT,
         UNIT_PRICE      FLOAT,
-        EQ_ID           INTEGER,
-        FOREIGN KEY     (EQ_ID) REFERENCES PRODUCT (EQ_ID),
+        EQ_ID           INTEGER REFERENCES PRODUCT (EQ_ID),
         PRIMARY KEY     (TRANSACTION_ID, EQ_ID)
     )
     """,  
