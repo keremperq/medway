@@ -191,14 +191,13 @@ INIT_STATEMENTS = [
 
     """
     CREATE TABLE IF NOT EXISTS PRODUCT (
-        EQ_ID                INTEGER,
+        EQ_ID                INTEGER REFERENCES EQUIPMENT (EQ_ID),
         REMAINING            SMALLINT NOT NULL DEFAULT 0,
         PRICE                FLOAT,
         NUMBER_OF_SELLS      SMALLINT DEFAULT 0,
         EXPLANATION          VARCHAR(500),
         IS_ACTIVE            BOOLEAN DEFAULT TRUE,
-        SUPP_ID              INTEGER REFERENCES SUPPLIER (SUPP_ID),
-        FOREIGN KEY          (EQ_ID) REFERENCES EQUIPMENT (EQ_ID)
+        SUPP_ID              INTEGER REFERENCES SUPPLIER (SUPP_ID)
     )
     """,
 
