@@ -1,6 +1,5 @@
 from flask import current_app, render_template, abort, request, redirect, url_for, flash
 from flask_login import login_required, current_user
-from passlib.hash import pbkdf2_sha256 as hasher
 from forms import SignUpForm
 
 
@@ -13,7 +12,7 @@ def customers_page():
     return render_template("customer/customers.html", customers=customers)
 
 def customer_take_info_from_form(form):
-    return [form.data["c_name"], form.data["c_surname"], form.data["c_username"], form.data["c_email"], form.data["c_phone"],hasher.hash(form.data["c_password"]) ]
+    return [form.data["c_name"], form.data["c_surname"], form.data["c_username"], form.data["c_email"], form.data["c_phone"], form.data["c_password"] ]
 
 @login_required
 def edit_customer_page(customer_id):
