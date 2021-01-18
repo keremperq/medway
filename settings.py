@@ -1,3 +1,2 @@
 DEBUG = True
-PORT = 8080
 WTF_CSRF_ENABLED = False
