@@ -1,4 +1,4 @@
-from Flask_Login import UserMixin
+from flask_login import UserMixin
 
 class EquipmentObj:
     def __init__(self, eq_id, eq_name, eq_brand, eq_image, cat_id):
