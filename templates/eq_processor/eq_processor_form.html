@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="container medway-form">
+  {% if err_message %}
+  <div class="alert alert-danger" role="alert">
+    {{ err_message }}
+  </div>
+  {% endif %}
+  <h2 class="title">{{ title }}</h2>
+  <form action="" method="post" name="eq_processor_form" class="obje-edit-form">
+    <div class="form-group">
+      <label for="eq_id">Equipment ID</label>
+      <select class="form-control" id="eq_id" name="eq_id" required="required">
+        {% for equipment in equipments %}
+        {% if equipment.eq_id == values['eq_id'] %}
+        <option value="{{ equipment.eq_id }}" selected>{{ equipment.eq_name }}</option>
+        {% elif values['eq_id'] and add==False %}
+        <option disabled value="{{ equipment.eq_id }}">{{ equipment.eq_name }}</option>
+        {% else %}
+        <option value="{{ equipment.eq_id }}">{{ equipment.eq_name }}</option>
+        {% endif %}
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="model">Model</label>
+      <input type="text" class="form-control" id="model" name="model" placeholder="model" required="required" value="{{ values['model'] }}">
+    </div>
+    <div class="form-group">
+      <label for="fre_speed">Frequency Speed</label>
+      <input type="text" class="form-control" id="fre_speed" name="fre_speed" placeholder="fre_speed" required="required" value="{{ values['fre_speed'] }}">
+    </div>
+    <div class="form-group">
+      <label for="core_number">Core Number</label>
+      <input type="number" class="form-control" id="core_number" name="core_number" placeholder="1" min="1" required="required" value="{{ values['core_number'] }}">
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+</div>
+{% endblock %}

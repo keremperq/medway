@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="container medway-form">
+  {% if err_message %}
+  <div class="alert alert-danger" role="alert">
+    {{ err_message }}
+  </div>
+  {% endif %}
+  <h2 class="title">{{ title }}</h2>
+  <form action="" method="post" name="eq_powersupply_form" class="obje-edit-form">
+    <div class="form-group">
+      <label for="eq_id">Equipment ID</label>
+      <select class="form-control" id="eq_id" name="eq_id" required="required">
+        {% for equipment in equipments %}
+        {% if equipment.eq_id == values['eq_id'] %}
+        <option value="{{ equipment.eq_id }}" selected>{{ equipment.eq_name }}</option>
+        {% elif values['eq_id'] and add==False %}
+        <option disabled value="{{ equipment.eq_id }}">{{ equipment.eq_name }}</option>
+        {% else %}
+        <option value="{{ equipment.eq_id }}">{{ equipment.eq_name }}</option>
+        {% endif %}
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="power_w">Power_w</label>
+      <input type="text" class="form-control" id="power_w" name="power_w" placeholder="power_w" required="required" value="{{ values['power_w'] }}">
+    </div>
+    <div class="form-group">
+      <label for="power_type">Power Type</label>
+      <input type="text" class="form-control" id="power_type" name="power_type" placeholder="power_type" required="required" value="{{ values['power_type'] }}">
+    </div>
+    <div class="form-group">
+      <label for="sata_connection">Sata Connection</label>
+      <input type="text" class="form-control" id="sata_connection" name="sata_connection" placeholder="sata_connection"  required="required" value="{{ values['sata_connection'] }}">
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+</div>
+{% endblock %}

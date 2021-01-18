@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="container medway-form">
+  {% if err_message %}
+  <div class="alert alert-danger" role="alert">
+    {{ err_message }}
+  </div>
+  {% endif %}
+  <h2 class="title">{{ title }}</h2>
+  <form action="" method="post" name="eq_keyboard_form" class="obje-edit-form">
+    <div class="form-group">
+      <label for="eq_id">Equipment ID</label>
+      <select class="form-control" id="eq_id" name="eq_id" required="required">
+        {% for equipment in equipments %}
+        {% if equipment.eq_id == values['eq_id'] %}
+        <option value="{{ equipment.eq_id }}" selected>{{ equipment.eq_name }}</option>
+        {% elif values['eq_id'] and add==False %}
+        <option disabled value="{{ equipment.eq_id }}">{{ equipment.eq_name }}</option>
+        {% else %}
+        <option value="{{ equipment.eq_id }}">{{ equipment.eq_name }}</option>
+        {% endif %}
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="keyboard_type">Keyboard Type</label>
+      <input type="text" class="form-control" id="keyboard_type" name="keyboard_type" placeholder="keyboard_type" required="required" value="{{ values['keyboard_type'] }}">
+    </div>
+    <div class="form-group">
+      <label for="key_sequence">Key Sequence</label>
+      <input type="text" class="form-control" id="key_sequence" name="key_sequence" placeholder="key_sequence" required="required" value="{{ values['key_sequence'] }}">
+    </div>
+    <div class="form-group">
+      <label for="is_mechanic">Is Mechanic</label>
+      <input type="text" class="form-control" id="is_mechanic" name="is_mechanic" placeholder="is_mechanic" required="required" value="{{ values['is_mechanic'] }}">
+    </div>
+     <div class="form-group">
+      <label for="is_rgb">Is RGB</label>
+      <input type="text" class="form-control" id="is_rgb" name="is_rgb" placeholder="is_rgb" required="required" value="{{ values['is_rgb'] }}">
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+</div>
+{% endblock %}

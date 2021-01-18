@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="container medway-form">
+  {% if err_message %}
+  <div class="alert alert-danger" role="alert">
+    {{ err_message }}
+  </div>
+  {% endif %}
+  <h2 class="title">{{ title }}</h2>
+  <form action="" method="post" name="eq_monitor_form" class="obje-edit-form">
+    <div class="form-group">
+      <label for="eq_id">Equipment ID</label>
+      <select class="form-control" id="eq_id" name="eq_id" required="required">
+        {% for equipment in equipments %}
+        {% if equipment.eq_id == values['eq_id'] %}
+        <option value="{{ equipment.eq_id }}" selected>{{ equipment.eq_name }}</option>
+        {% elif values['eq_id'] and add==False %}
+        <option disabled value="{{ equipment.eq_id }}">{{ equipment.eq_name }}</option>
+        {% else %}
+        <option value="{{ equipment.eq_id }}">{{ equipment.eq_name }}</option>
+        {% endif %}
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="screen_size">Screen Size</label>
+      <input type="text" class="form-control" id="screen_size" name="screen_size" placeholder="screen_size" required="required" value="{{ values['screen_size'] }}">
+    </div>
+    <div class="form-group">
+      <label for="resolution">Resolution</label>
+      <input type="text" class="form-control" id="resolution" name="resolution" placeholder="resolution" required="required" value="{{ values['resolution'] }}">
+    </div>
+    <div class="form-group">
+      <label for="refresh_rate">Refresh Rate</label>
+      <input type="text" class="form-control" id="refresh_rate" name="refresh_rate" placeholder="refresh_rate" required="required" value="{{ values['refresh_rate'] }}">
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+</div>
+{% endblock %}

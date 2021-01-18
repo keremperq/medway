@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="container equipment-form">
+  {% if err_message %}
+  <div class="alert alert-danger" role="alert">
+    {{ err_message }}
+  </div>
+  {% endif %}
+  <h2 class="title">{{ title }}</h2>
+  <form action="" method="post" name="eq_case_form" class="obje-edit-form">
+    <div class="form-group">
+      <label for="eq_id">Equipment ID</label>
+      <select class="form-control" id="eq_id" name="eq_id" required="required">
+        {% for equipment in equipments %}
+        {% if equipment.eq_id == values['eq_id'] %}
+        <option value="{{ equipment.eq_id }}" selected>{{ equipment.eq_name }}</option>
+        {% elif values['eq_id'] and add==False %}
+        <option disabled value="{{ equipment.eq_id }}">{{ equipment.eq_name }}</option>
+        {% else %}
+        <option value="{{ equipment.eq_id }}">{{ equipment.eq_name }}</option>
+        {% endif %}
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="case_type">Case Type</label>
+      <input type="text" class="form-control" id="case_type" name="case_type" placeholder="case_type" required="required" value="{{ values['case_type'] }}">
+    </div>
+    <div class="form-group">
+      <label for="has_audio">Has Audio</label>
+      <input type="text" class="form-control" id="has_audio" name="has_audio" placeholder="yes/no" required="required" value="{{ values['has_audio'] }}">
+    </div>
+    <div class="form-group">
+      <label for="is_transparent">Is_transparent</label>
+      <input type="text" class="form-control" id="is_transparent" name="is_transparent" placeholder="yes/no" required="required" value="{{ values['is_transparent'] }}">
+    </div>
+    <div class="form-group">
+      <label for="has_psu">Has PSU</label>
+      <input type="text" class="form-control" id="has_psu" name="has_psu" placeholder="yes/no" required="required" value="{{ values['has_psu'] }}">
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+</div>
+{% endblock %}

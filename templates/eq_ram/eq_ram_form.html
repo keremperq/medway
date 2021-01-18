@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="container medway-form">
+  {% if err_message %}
+  <div class="alert alert-danger" role="alert">
+    {{ err_message }}
+  </div>
+  {% endif %}
+  <h2 class="title">{{ title }}</h2>
+  <form action="" method="post" name="eq_ram_form" class="obje-edit-form">
+    <div class="form-group">
+      <label for="eq_id">Equipment ID</label>
+      <select class="form-control" id="eq_id" name="eq_id" required="required">
+        {% for equipment in equipments %}
+        {% if equipment.eq_id == values['eq_id'] %}
+        <option value="{{ equipment.eq_id }}" selected>{{ equipment.eq_name }}</option>
+        {% elif values['eq_id'] and add==False %}
+        <option disabled value="{{ equipment.eq_id }}">{{ equipment.eq_name }}</option>
+        {% else %}
+        <option value="{{ equipment.eq_id }}">{{ equipment.eq_name }}</option>
+        {% endif %}
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="ram_type">Ram Type</label>
+      <input type="text" class="form-control" id="ram_type" name="ram_type" placeholder="ram_type" required="required" value="{{ values['ram_type'] }}">
+    </div>
+    <div class="form-group">
+      <label for="capacity">Capacity</label>
+      <input type="text" class="form-control" id="capacity" name="capacity" placeholder="capacity" required="required" value="{{ values['capacity'] }}">
+    </div>
+    <div class="form-group">
+      <label for="fre_speed">Frequency Speed</label>
+      <input type="text" class="form-control" id="fre_speed" name="fre_speed" placeholder="fre_speed"  required="required" value="{{ values['fre_speed'] }}">
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+</div>
+{% endblock %}

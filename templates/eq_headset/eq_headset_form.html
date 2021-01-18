@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="container medway-form">
+  {% if err_message %}
+  <div class="alert alert-danger" role="alert">
+    {{ err_message }}
+  </div>
+  {% endif %}
+  <h2 class="title">{{ title }}</h2>
+  <form action="" method="post" name="eq_headset_form" class="obje-edit-form">
+    <div class="form-group">
+      <label for="eq_id">Equipment ID</label>
+      <select class="form-control" id="eq_id" name="eq_id" required="required">
+        {% for equipment in equipments %}
+        {% if equipment.eq_id == values['eq_id'] %}
+        <option value="{{ equipment.eq_id }}" selected>{{ equipment.eq_name }}</option>
+        {% elif values['eq_id'] and add==False %}
+        <option disabled value="{{ equipment.eq_id }}">{{ equipment.eq_name }}</option>
+        {% else %}
+        <option value="{{ equipment.eq_id }}">{{ equipment.eq_name }}</option>
+        {% endif %}
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="usage_area">Usage Area</label>
+      <input type="text" class="form-control" id="usage_area" name="usage_area" placeholder="usage_area" required="required" value="{{ values['usage_area'] }}">
+    </div>
+    <div class="form-group">
+      <label for="headset_type">Headset Type</label>
+      <input type="text" class="form-control" id="headset_type" name="headset_type" placeholder="headset_type" required="required" value="{{ values['headset_type'] }}">
+    </div>
+    <div class="form-group">
+      <label for="has_mic">Has Mic</label>
+      <input type="text" class="form-control" id="has_mic" name="has_mic" placeholder="has_mic" required="required" value="{{ values['has_mic'] }}">
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="container medway-form">
+  {% if err_message %}
+  <div class="alert alert-danger" role="alert">
+    {{ err_message }}
+  </div>
+  {% endif %}
+  <h2 class="title">{{ title }}</h2>
+  <form action="" method="post" name="eq_videocard_form" class="obje-edit-form">
+    <div class="form-group">
+      <label for="eq_id">Equipment ID</label>
+      <select class="form-control" id="eq_id" name="eq_id" required="required">
+        {% for equipment in equipments %}
+        {% if equipment.eq_id == values['eq_id'] %}
+        <option value="{{ equipment.eq_id }}" selected>{{ equipment.eq_name }}</option>
+        {% elif values['eq_id'] and add==False %}
+        <option disabled value="{{ equipment.eq_id }}">{{ equipment.eq_name }}</option>
+        {% else %}
+        <option value="{{ equipment.eq_id }}">{{ equipment.eq_name }}</option>
+        {% endif %}
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="memory_size">Memory Size</label>
+      <input type="text" class="form-control" id="memory_size" name="memory_size" placeholder="memory_size" required="required" value="{{ values['memory_size'] }}">
+    </div>
+    <div class="form-group">
+      <label for="core_speed">Core Speed</label>
+      <input type="text" class="form-control" id="core_speed" name="core_speed" placeholder="core_speed" required="required" value="{{ values['core_speed'] }}">
+    </div>
+    <div class="form-group">
+      <label for="gpu_model">GPU Model</label>
+      <input type="text" class="form-control" id="gpu_model" name="gpu_model" placeholder="gpu_model"  required="required" value="{{ values['gpu_model'] }}">
+    </div>
+    <div class="form-group">
+      <label for="manufacturer">Manufacturer</label>
+      <input type="text" class="form-control" id="manufacturer" name="manufacturer" placeholder="manufacturer"  required="required" value="{{ values['manufacturer'] }}">
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+</div>
+{% endblock %}

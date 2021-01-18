@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="container medway-form">
+  {% if err_message %}
+  <div class="alert alert-danger" role="alert">
+    {{ err_message }}
+  </div>
+  {% endif %}
+  <h2 class="title">{{ title }}</h2>
+  <form action="" method="post" name="eq_motherboard_form" class="obje-edit-form">
+    <div class="form-group">
+      <label for="eq_id">Equipment ID</label>
+      <select class="form-control" id="eq_id" name="eq_id" required="required">
+        {% for equipment in equipments %}
+        {% if equipment.eq_id == values['eq_id'] %}
+        <option value="{{ equipment.eq_id }}" selected>{{ equipment.eq_name }}</option>
+        {% elif values['eq_id'] and add==False %}
+        <option disabled value="{{ equipment.eq_id }}">{{ equipment.eq_name }}</option>
+        {% else %}
+        <option value="{{ equipment.eq_id }}">{{ equipment.eq_name }}</option>
+        {% endif %}
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="ram_type">Ram Type</label>
+      <input type="text" class="form-control" id="ram_type" name="ram_type" placeholder="ram_type" required="required" value="{{ values['ram_type'] }}">
+    </div>
+    <div class="form-group">
+      <label for="max_ram">Max Ram</label>
+      <input type="text" class="form-control" id="max_ram" name="max_ram" placeholder="max_ram" required="required" value="{{ values['max_ram'] }}">
+    </div>
+    <div class="form-group">
+      <label for="ram_slot_number">Ram Slot Number</label>
+      <input type="number" class="form-control" id="ram_slot_number" name="ram_slot_number" placeholder="1" min="1" required="required" value="{{ values['ram_slot_number'] }}">
+    </div>
+     <div class="form-group">
+      <label for="socket_type">Socket Type</label>
+      <input type="text" class="form-control" id="socket_type" name="socket_type" placeholder="socket_type" required="required" value="{{ values['socket_type'] }}">
+    </div>
+    <div class="form-group">
+      <label for="ram_fre_speed">Ram Frequency Speed</label>
+      <input type="text" class="form-control" id="ram_fre_speed" name="ram_fre_speed" placeholder="ram_fre_speed" required="required" value="{{ values['ram_fre_speed'] }}">
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="container medway-form">
+  {% if err_message %}
+  <div class="alert alert-danger" role="alert">
+    {{ err_message }}
+  </div>
+  {% endif %}
+  <h2 class="title">{{ title }}</h2>
+  <form action="" method="post" name="equipment_edit" class="obje-edit-form">
+    <div class="form-group">
+      <label for="eq_name">Name</label>
+      <input type="text" class="form-control" name="eq_name" id="eq_name" placeholder="Equipment Name" required="required" value="{{ values['eq_name'] }}">
+    </div>
+    <div class="form-group">
+      <label for="brand">Brand</label>
+      <input type="number" class="form-control" name="brand" id="brand" placeholder="Brand" required="required" value="{{ values['brand'] }}">
+    </div>
+    <div class="form-group">
+      <label for="explanation">Explanation</label>
+      <textarea class="form-control" name="explanation" id="explanation" rows="3" required="required">{{ values['explanation'] }}</textarea>
+    </div>
+    <div class="form-group">
+      <label for="selected_category_ids">Categories</label>
+      <select class="form-control" id="selected_category_ids" name="selected_category_ids" size="5" multiple="multiple" tabindex="1" required="required">
+        {% for category in categories %}
+        {% if category.cat_id in values['selected_category_ids'] %}
+        <option value="{{ category.cat_id }}" selected>{{ category.cat_name }}</option>
+        {% else %}
+        <option value="{{ category.cat_id }}">{{ category.cat_name }}</option>
+        {% endif %}
+        {% endfor %}
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="container medway-form">
+  {% if err_message %}
+  <div class="alert alert-danger" role="alert">
+    {{ err_message }}
+  </div>
+  {% endif %}
+  <h2 class="title">{{ title }}</h2>
+  <form action="" method="post" name="eq_mouse_form" class="obje-edit-form">
+    <div class="form-group">
+      <label for="eq_id">Equipment ID</label>
+      <select class="form-control" id="eq_id" name="eq_id" required="required">
+        {% for equipment in equipments %}
+        {% if equipment.eq_id == values['eq_id'] %}
+        <option value="{{ equipment.eq_id }}" selected>{{ equipment.eq_name }}</option>
+        {% elif values['eq_id'] and add==False %}
+        <option disabled value="{{ equipment.eq_id }}">{{ equipment.eq_name }}</option>
+        {% else %}
+        <option value="{{ equipment.eq_id }}">{{ equipment.eq_name }}</option>
+        {% endif %}
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="mouse_type">Mouse Type</label>
+      <input type="text" class="form-control" id="mouse_type" name="mouse_type" placeholder="mouse_type" required="required" value="{{ values['mouse_type'] }}">
+    </div>
+    <div class="form-group">
+      <label for="dpi">DPI</label>
+      <input type="text" class="form-control" id="dpi" name="dpi" placeholder="dpi" required="required" value="{{ values['dpi'] }}">
+    </div>
+    <div class="form-group">
+      <label for="buttons">Buttons</label>
+      <input type="number" class="form-control" id="buttons" name="buttons" placeholder="1" min="1" required="required" value="{{ values['buttons'] }}">
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+</div>
+{% endblock %}

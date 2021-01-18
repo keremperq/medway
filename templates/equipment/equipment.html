@@ -1,0 +1,111 @@
+{% extends "layout.html" %}
+{% block title %}{{ equipment.eq_name }}{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="medway-obje medway-equipment-info col-md-6">
+      <h2 class="title">{{ equipment.eq_name }}</h2>
+      <table class="medway-table-info">
+        <tr>
+          <td><b>Name: </b></td>
+          <td>{{ equipment.eq_name }}</td>
+        </tr>
+        <tr>
+          <td><b>Categories: </b></td>
+          <td>{% for category in categories %}<a href="{{ url_for('equipments_by_category_page', category_id=category.cat_id) }}">{{ category.cat_name }}</a>, {% endfor %}</td>
+        </tr>
+        <tr>
+          <td><b>Brand: </b></td>
+          <td>{{ equipment.eq_brand }}</td>
+        </tr>
+        <tr>
+          <td><b>Image: </b></td>
+          <td>{{ equipment.eq_image }}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="table-responsive">
+        <table id="mytable" class="table table-bordred table-striped medway-table-link">
+          <thead>
+            <th>Detail</th>
+            {% if current_user.is_admin %}
+            <th>Edit</th>
+            <th>Delete</th>
+            {% endif %}
+          </thead>
+          <tbody>
+            {% if equipments %}
+            {% for equipment in equipments %}
+            <tr>
+              <td><a href="{{ url_for('product_page', eq_id=equipment.eq_id) }}" class="glyphicon glyphicon-search btn btn-primary btn-xs"></a></td>
+              <td>{{ equipment.eq_id }}</td>
+              {% if current_user.is_admin %}
+              <td><a href="{{ url_for('equipment_edit_page', eq_id=equipment.eq_id) }}" class="glyphicon glyphicon-pencil btn btn-primary btn-xs"></a></td>
+              <td><a href="{{ url_for('equipment_delete_page', eq_id=equipment.eq_id) }}" class="glyphicon glyphicon-trash btn btn-danger btn-xs"></a></td>
+              {% endif %}
+            </tr>
+            {% endfor %}
+            {% endif %}
+          </tbody>
+        </table>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    {% if current_user.is_authenticated %}
+    <div class="container medway-form">
+      {% if err_message_comment %}
+      <div class="alert alert-danger" role="alert">
+        {{ comment_err_message }}
+      </div>
+      {% endif %}
+      <h2 class="title">Add comment</h2>
+      <form action="" method="post" name="add_comment" class="obje-edit-form">
+        <div class="form-group">
+          <label for="comment_title">Title</label>
+          <input type="text" class="form-control" id="comment_title" name="comment_title" placeholder="Title" required="required" value="{{ new_comment_values['comment_title'] }}">
+        </div>
+        <div class="form-group">
+          <label for="comment_statement">Explanation</label>
+          <textarea class="form-control" id="comment_statement" name="comment_statement" placeholder="Explanation" rows="3" required="required">{{ new_comment_values['comment_statement'] }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </form>
+    </div>
+    {% else %}
+    <div class="alert alert-warning medway-width-325 container" role="alert">
+      <h4> Please <a href="{{ url_for('login_page') }}">Login</a> to post a comment.</h4>
+    </div>
+    {% endif %}
+  </div>
+  <div class="row">
+    <div class="container medway-comments">
+      <h2 class="title">Comments of the equipments</h2>
+      {% for comment, customer in comments %}
+      {% if comment.eq_id == equipment.eq_id %}
+      <div class="row container medway-obje medway-comment">
+        <div class="col-md-11">
+          <p><b>Customer:</b> {{ customer.username }}</p>
+          <p><b>Title:</b> {{ comment.comment_title }}</p>
+          <p><b>Explanation:</b><br>{{ comment.comment_statement }}</p>
+          <p><b>Updated time:</b>{{ comment.updated_time }}</p>
+        </div>
+        {% if current_user.id == comment.customer_id or current_user.is_admin %}
+        <div class="col-md-1">
+          <a href="{{ url_for('comment_edit_page', comment_id=comment.comment_id) }}" class="glyphicon glyphicon-pencil btn btn-primary btn-xs"></a>
+          <a href="{{ url_for('comment_delete_page', comment_id=comment.comment_id) }}" class="glyphicon glyphicon-trash btn btn-danger btn-xs"></a>
+        </div>
+        {% endif %}
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

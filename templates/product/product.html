@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <h2 class="title medway-title-table">Equipment Information</h2>
+      <table class="medway-table-info table table-striped">
+        <tr>
+          <td style="width:40%; "><b>Equipment name: </b></td>
+          <td>{{ equipment.eq_name }}</td>
+        </tr>
+        <tr>
+          <td><b>Brand: </b></td>
+          <td>{{ equipment.eq_brand }}</td>
+        </tr>
+        <tr>
+          <td><b>Image: </b></td>
+          <td>{{ equipment.eq_image }}</td>
+        </tr>
+        <tr>
+          <td><b>Categories: </b></td>
+          <td>{% for category in categories %}<a href="{{ url_for('equipments_by_category_page', category_id=category.cat_id) }}">{{ category.cat_name }}</a>, {% endfor %}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-4">
+      <h2 class="title medway-title-table">Product Information</h2>
+      <table class="medway-table-info table table-striped">
+        <tr>
+          <td style="width:40%; "><b>Price: </b></td>
+          <td>{{ product.price }}</td>
+        </tr>
+        <tr>
+          <td><b>Sold: </b></td>
+          <td>{{ product.number_of_sells }}</td>
+        </tr>
+        <tr>
+          <td><b>Remaining: </b></td>
+          <td>{{ product.remaining }}</td>
+        </tr>
+        <tr>
+          <td><b>Explanation: </b></td>
+          <td>{{ product.explanation }}</td>
+        </tr>
+        <tr>
+          <td><b>Supplier Name: </b></td>
+          <td>{{ supplier.supplier_name }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="row" style="text-align: center;">
+    {% if not product.is_active %}
+    <div class="alert alert-warning medway-width-325 container" role="alert">
+      <h4>There is no sale of this product.</h4>
+    </div>
+    {% elif not current_user.is_authenticated %}
+    <div class="alert alert-warning medway-width-325 container" role="alert">
+      <h4>Please <a href="{{ url_for('login_page') }}">Login</a> to buy this product</h4>
+    </div>
+    {% else %}
+    {% if err_message %}
+    <div class="alert alert-danger" role="alert">
+      {{ err_message }}
+    </div>
+    {% endif %}
+    <form class="form-inline" action="" method="post" name="add_to_cart" >
+      <label class="sr-only" for="piece">Name</label>
+      <div class="input-group">
+        <span class="input-group-addon">Piece:</span>
+        <input type="number" class="form-control" id="piece" name="piece" placeholder="Piece" required="required" value="1" min="1">
+      </div>
+      <button type="submit" class="btn btn-success my-1">Add to Cart</button>
+    </form>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}
