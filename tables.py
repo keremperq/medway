@@ -40,7 +40,7 @@ class CommentObj:
 
 
 class CustomerObj(UserMixin):
-    def __init__(self, customer_id, customer_name,surname, username, email, password, phone, address_id,is_active=True):
+    def __init__(self, customer_id, customer_name,surname, username, email, password, phone, address_id,active=True):
         self.id = customer_id
         self.customer_name = customer_name
         self.surname = surname
@@ -49,7 +49,7 @@ class CustomerObj(UserMixin):
         self.password = password
         self.phone = phone
         self.address_id = address_id
-        self.is_active = is_active
+        self.active = active
         self.is_admin = self.id == 1     # To make user with customer_id = 1 admin
 
 
