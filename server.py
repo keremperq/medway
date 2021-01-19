@@ -1,7 +1,7 @@
 from flask import Flask, abort, render_template
 from flask_login import LoginManager
 from database import Database
-from views import address_view, category_view, comment_view, customer_view, eq_case_view,eq_cooler_view,eq_headset_view,eq_keyboard_view,eq_monitor_view,eq_motherboard_view,eq_mouse_view,eq_powersupply_view,eq_processor_view,eq_ram_view,eq_videocard_view,equipment_view,general_views,login_view,product_view,transaction_view
+from views import *
 
 lm = LoginManager()
 db = Database()
