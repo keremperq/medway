@@ -1,6 +1,7 @@
 from flask import current_app, render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required
 from forms import LoginForm, SignUpForm
+from passlib.hash import pbkdf2_sha256 as hasher
 from views.customer_view import customer_take_info_from_form
 
 
@@ -13,7 +14,7 @@ def login_page():
         if user is not None and user.is_active:
             password = form.data["password"]
             remember = form.data["remember_me"]
-            if (password == user.password):
+            if hasher.verify(password, user.password):
                 login_user(user, remember)
                 flash("You have logged in successfully", "success")
                 next_page = request.args.get("next", url_for("home_page"))
