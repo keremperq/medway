@@ -6,7 +6,7 @@ class Eq_cooler(baseClass):
         super().__init__("EQ_COOLER", Eq_coolerObj)
 
     def add(self, eq_cooler):
-        query = "INSERT INTO EQ_COOLER (COOLER_TYPE, COOLER_SIZE, LED_COLOR, EQ_ID) VALUES (%s, %s, %s, %s)"
+        query = "INSERT INTO EQ_COOLER (COOLER_TYPE, COOLER_SIZE, LED_COLOR, EQ_ID) VALUES (%s, %s, %s, %s) RETURNING EQ_ID"
         fill = (eq_cooler.cooler_type, eq_cooler.cooler_size, eq_cooler.led_color, eq_cooler.eq_id)
         self.execute(query, fill)
 

@@ -8,7 +8,7 @@ class Product(baseClass):
         super().__init__("PRODUCT", ProductObj)
 
     def add(self, product):
-        query = "INSERT INTO PRODUCT (EQ_ID, REMAINING, PRICE, NUMBER_OF_SELLS, EXPLANATION, IS_ACTIVE, SUPP_ID) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+        query = "INSERT INTO PRODUCT (EQ_ID, REMAINING, PRICE, NUMBER_OF_SELLS, EXPLANATION, IS_ACTIVE, SUPP_ID) VALUES (%s, %s, %s, %s, %s, %s, %s) RETURNING EQ_ID"
         fill = (product.eq_id, product.remaining, product.price, product.number_of_sells, product.explanation, product.is_active)
 
         self.execute(query, fill)

@@ -6,7 +6,7 @@ class Eq_monitor(baseClass):
         super().__init__("EQ_MONITOR", Eq_monitorObj)
 
     def add(self, eq_monitor):
-        query = "INSERT INTO EQ_MONITOR (SCREEN_SIZE, RESOLUTION, REFRESH_RATE, EQ_ID) VALUES (%s, %s, %s, %s)"
+        query = "INSERT INTO EQ_MONITOR (SCREEN_SIZE, RESOLUTION, REFRESH_RATE, EQ_ID) VALUES (%s, %s, %s, %s) RETURNING EQ_ID"
         fill = (eq_monitor.screen_size, eq_monitor.resolution, eq_monitor.refresh_rate, eq_monitor.eq_id)
         self.execute(query, fill)
 

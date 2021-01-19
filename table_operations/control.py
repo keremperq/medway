@@ -13,8 +13,8 @@ class Control:
             elif len(values["eq_name"]) >= 100:
                 err_message = "Equipment name cannot be more than 100 character"
 
-            for category_id in values["selected_category_ids"]:
-                if not db.category.get_row(where_columns=["CATEGORY_ID"], where_values=[category_id]):
+            for cat_id in values["selected_category_ids"]:
+                if not db.category.get_row(where_columns=["CAT_ID"], where_values=[cat_id]):
                     err_message = "Please select category from list"
                     return err_message
 

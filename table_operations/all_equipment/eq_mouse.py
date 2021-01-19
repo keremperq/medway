@@ -6,7 +6,7 @@ class Eq_mouse(baseClass):
         super().__init__("EQ_MOUSE", Eq_mouseObj)
 
     def add(self, eq_mouse):
-        query = "INSERT INTO EQ_MOUSE (MOUSE_TYPE, DPI, BUTTONS, EQ_ID) VALUES (%s, %s, %s, %s)"
+        query = "INSERT INTO EQ_MOUSE (MOUSE_TYPE, DPI, BUTTONS, EQ_ID) VALUES (%s, %s, %s, %s) RETURNING EQ_ID"
         fill = (eq_mouse.mouse_type, eq_mouse.dpi, eq_mouse.buttons, eq_mouse.eq_id)
         self.execute(query, fill)
 

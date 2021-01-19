@@ -7,7 +7,7 @@ class Supplier(baseClass):
         super().__init__("SUPPLIER", SupplierObj)
 
     def add(self, supplier):
-        query = "INSERT INTO SUPPLIER (SUPPLIER_NAME, SUPP_PHONE, SUPP_ADDRESS) VALUES (%s, %s, %s)"
+        query = "INSERT INTO SUPPLIER (SUPPLIER_NAME, SUPP_PHONE, SUPP_ADDRESS) VALUES (%s, %s, %s) RETURNING SUPP_ID"
         fill = (supplier.supplier_name, supplier.supp_phone, supplier.supp_address)
         self.execute(query, fill)
 

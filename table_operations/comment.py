@@ -7,7 +7,7 @@ class Comment(baseClass):
         super().__init__("COMMENT", CommentObj)
 
     def add(self, comment):
-        query = "INSERT INTO COMMENT (CUSTOMER_ID, EQ_ID, COMMENT_TITLE, COMMENT_STATEMENT) VALUES (%s, %s, %s, %s)"
+        query = "INSERT INTO COMMENT (CUSTOMER_ID, EQ_ID, COMMENT_TITLE, COMMENT_STATEMENT) VALUES (%s, %s, %s, %s) RETURNING CUSTOMER_ID"
         fill = (comment.customer_id, comment.eq_id, comment.comment_title, comment.comment_statement)
         self.execute(query, fill)
 

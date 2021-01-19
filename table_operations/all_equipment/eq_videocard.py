@@ -6,7 +6,7 @@ class Eq_videocard(baseClass):
         super().__init__("EQ_VIDEOCARD", Eq_videocardObj)
 
     def add(self, eq_videocard):
-        query = "INSERT INTO EQ_VIDEOCARD (MEMORY_SIZE, CORE_SPEED, GPU_MODEL, MANUFACTURER, EQ_ID) VALUES (%s, %s, %s, %s, %s)"
+        query = "INSERT INTO EQ_VIDEOCARD (MEMORY_SIZE, CORE_SPEED, GPU_MODEL, MANUFACTURER, EQ_ID) VALUES (%s, %s, %s, %s, %s) RETURNING EQ_ID"
         fill = (eq_videocard.memory_size, eq_videocard.core_speed, eq_videocard.gpu_model, eq_videocard.manufacturer, eq_videocard.eq_id)
         self.execute(query, fill)
 

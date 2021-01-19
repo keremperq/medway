@@ -6,7 +6,7 @@ class Eq_powersupply(baseClass):
         super().__init__("EQ_POWERSUPPLY", Eq_powersupplyObj)
 
     def add(self, eq_powersupply):
-        query = "INSERT INTO EQ_POWERSUPPLY (POWER_W, POWER_TYPE, SATA_CONNECTION, EQ_ID) VALUES (%s, %s, %s, %s)"
+        query = "INSERT INTO EQ_POWERSUPPLY (POWER_W, POWER_TYPE, SATA_CONNECTION, EQ_ID) VALUES (%s, %s, %s, %s) RETURNING EQ_ID"
         fill = (eq_powersupply.power_w, eq_powersupply.power_type, eq_powersupply.sata_connection, eq_powersupply.eq_id)
         self.execute(query, fill)
 

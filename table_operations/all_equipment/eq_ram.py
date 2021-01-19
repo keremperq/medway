@@ -6,7 +6,7 @@ class Eq_ram(baseClass):
         super().__init__("EQ_RAM", Eq_ramObj)
 
     def add(self, eq_ram):
-        query = "INSERT INTO EQ_RAM (RAM_TYPE, CAPACITY, FRE_SPEED, EQ_ID) VALUES (%s, %s, %s, %s)"
+        query = "INSERT INTO EQ_RAM (RAM_TYPE, CAPACITY, FRE_SPEED, EQ_ID) VALUES (%s, %s, %s, %s) RETURNING EQ_ID"
         fill = (eq_ram.ram_type, eq_ram.capacity, eq_ram.fre_speed, eq_ram.eq_id)
         self.execute(query, fill)
 

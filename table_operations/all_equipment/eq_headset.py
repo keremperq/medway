@@ -6,7 +6,7 @@ class Eq_headset(baseClass):
         super().__init__("EQ_HEADSET", Eq_headsetObj)
 
     def add(self, eq_headset):
-        query = "INSERT INTO EQ_HEADSET (USAGE_AREA, HEADSET_TYPE, HAS_MIC, EQ_ID) VALUES (%s, %s, %s, %s)"
+        query = "INSERT INTO EQ_HEADSET (USAGE_AREA, HEADSET_TYPE, HAS_MIC, EQ_ID) VALUES (%s, %s, %s, %s) RETURNING EQ_ID"
         fill = (eq_headset.usage_area, eq_headset.headset_type, eq_headset.has_mic, eq_headset.eq_id)
         self.execute(query, fill)
 
