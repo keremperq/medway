@@ -7,7 +7,7 @@ class Equipment(baseClass):
         super().__init__("EQUIPMENT", EquipmentObj)
 
     def add_equipment(self, equipment):
-        query = "INSERT INTO EQUIPMENT (EQ_NAME, EQ_BRAND, EQ_IMAGE, CAT_ID) VALUES (%s, %s, %s, %s) RETURNING EQUIPMENT_ID"
+        query = "INSERT INTO EQUIPMENT (EQ_NAME, EQ_BRAND, EQ_IMAGE, CAT_ID) VALUES (%s, %s, %s, %s) RETURNING EQ_ID"
         fill = (equipment.eq_name , equipment.eq_brand, equipment.eq_image, equipment.cat_id)
 
         last_eq_id = (self.execute(query, fill, True))[0][0]
