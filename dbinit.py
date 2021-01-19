@@ -4,7 +4,7 @@ import psycopg2 as dbapi2
 
 
 INIT_STATEMENTS = [
-    #"DROP SCHEMA public CASCADE;CREATE SCHEMA public;",
+    "DROP SCHEMA public CASCADE;CREATE SCHEMA public;",
 
     """
     CREATE TABLE IF NOT EXISTS CATEGORY (
