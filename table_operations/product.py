@@ -69,8 +69,8 @@ class Product(baseClass):
     def get_products_all_info(self, eq_id=None, is_active=True):
         products_equipments = []
 
-        query = "SELECT * FROM PRODUCT, EQUIPMENT" \
-                "WHERE ((PRODUCT.EQ_ID = EQUIPMENT.EQ_ID  " \
+        query = "SELECT * FROM PRODUCT, EQUIPMENT " \
+                "WHERE (PRODUCT.EQ_ID = EQUIPMENT.EQ_ID  " \
                 "AND (PRODUCT.IS_ACTIVE = %s"
         fill = [is_active]
 
