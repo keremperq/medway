@@ -19,7 +19,8 @@ INIT_STATEMENTS = [
         EQ_NAME         VARCHAR(100),
         EQ_BRAND        VARCHAR(100),
         EQ_IMAGE        VARCHAR(200),
-        CAT_ID          INTEGER REFERENCES CATEGORY (CAT_ID)
+        CAT_ID          INTEGER REFERENCES CATEGORY (CAT_ID),
+        PRIMARY KEY     (EQ_ID,CAT_ID)
         )
     """,
 
