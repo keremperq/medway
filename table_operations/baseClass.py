@@ -2,10 +2,10 @@ import os
 import sys
 import psycopg2 as dbapi2
 
-url = os.getenv("DATABASE_URL")
-if url is None:
-    print("Usage: DATABASE_URL=url python database.py", file=sys.stderr)
-    sys.exit(1)
+DB_HOST = "localhost"
+DB_NAME = "postgres"
+DB_USER = "postgres"
+DB_PASS = "2357"
 
 class baseClass:
 
@@ -77,7 +77,7 @@ class baseClass:
 
     def execute(self, query, fill=None, fetch_bool=False):
         result = []
-        with dbapi2.connect(url) as connection:
+        with dbapi2.connect(dbname=DB_NAME,user=DB_USER, password=DB_PASS,host=DB_HOST) as connection:
             with connection.cursor() as curs:
                 try:
                     print(curs.mogrify(query, fill))

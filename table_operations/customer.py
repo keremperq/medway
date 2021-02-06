@@ -7,11 +7,10 @@ class Customer(baseClass):
 
     def add(self, *values):
         '''
-        @param customer_name, surname, username, is_active, email, phone, password, address_id
+        @param person_id, username, email, password_hash, phone, active
         '''
         assert len(values) == 6
-        query = self.insertIntoFlex("CUSTOMER_NAME", "SURNAME", "USERNAME", "IS_ACTIVE", "EMAIL", "PHONE", "PASSWORD", "ADDRESS_ID") + " RETURNING CUSTOMER_ID"
+        query = self.insertIntoFlex("PERSON_ID", "USERNAME", "EMAIL", "PASS_HASH", "PHONE", "IS_ACTIVE") + " RETURNING CUSTOMER_ID"
         fill = (*values, )
         last_customer_id = (self.execute(query, fill, True))[0][0]
         return last_customer_id if last_customer_id is not None else -1
-    

@@ -8,9 +8,7 @@ class Control:
             db = current_app.config["db"]
 
             # Invalid input control
-            if len(values["explanation"]) >= 1000:
-                err_message = "Explanation cannot be more than 1000 character"
-            elif len(values["eq_name"]) >= 100:
+            if len(values["eq_name"]) >= 100:
                 err_message = "Equipment name cannot be more than 100 character"
 
             for cat_id in values["selected_category_ids"]:
@@ -64,8 +62,7 @@ class Control:
                 err_message = "Remaining must be equal or greater than 0"
             elif float(values["price"]) < 0:
                 err_message = "Price cannot be lower than 0"
-            elif len(values["explanation"]) > 500:
-                err_message = "Explanation cannot be more than 500 character"
+            
 
             return err_message
 
@@ -75,7 +72,7 @@ class Control:
             db = current_app.config["db"]
 
             # Invalid input control
-            if not db.transaction.get_row(where_columns=["CUSTOMER_ID", "ADDRESS_ID"], where_values=[transaction.customer_id, values["address_id"]]):
+            if not db.customer_address.get_row(where_columns=["CUSTOMER_ID", "ADDRESS_ID"], where_values=[transaction.customer_id, values["address_id"]]):
                 err_message = "This address does not belong to the customer."
             elif len(values["payment_type"]) > 30:
                 err_message = "Payment type cannot be more than 30 character"

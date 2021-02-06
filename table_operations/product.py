@@ -1,7 +1,11 @@
 import psycopg2 as dbapi2
-from table_operations.baseClass import baseClass, url
+from table_operations.baseClass import baseClass 
 from tables import ProductObj, EquipmentObj
 
+DB_HOST = "localhost"
+DB_NAME = "postgres"
+DB_USER = "postgres"
+DB_PASS = "2357"
 
 class Product(baseClass):
     def __init__(self):
@@ -42,7 +46,7 @@ class Product(baseClass):
         query = "SELECT * FROM PRODUCT WHERE (EQ_ID = %s)"
         fill = (eq_id)
 
-        with dbapi2.connect(url) as connection:
+        with dbapi2.connect(dbname=DB_NAME,host=DB_HOST,user=DB_USER,password=DB_PASS) as connection:
             cursor = connection.cursor()
             cursor.execute(query, fill)
             product = cursor.fetchone()
@@ -56,7 +60,7 @@ class Product(baseClass):
 
         query = "SELECT * FROM PRODUCT;"
 
-        with dbapi2.connect(url) as connection:
+        with dbapi2.connect(dbname=DB_NAME,host=DB_HOST,user=DB_USER,password=DB_PASS) as connection:
             cursor = connection.cursor()
             cursor.execute(query)
             for product in cursor:
@@ -81,7 +85,7 @@ class Product(baseClass):
 
         fill = tuple(fill)
 
-        with dbapi2.connect(url) as connection:
+        with dbapi2.connect(dbname=DB_NAME,host=DB_HOST,user=DB_USER,password=DB_PASS) as connection:
             cursor = connection.cursor()
             cursor.execute(query, fill)
             for all_info in cursor:
