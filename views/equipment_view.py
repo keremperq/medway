@@ -1,4 +1,3 @@
-import datetime
 from flask import current_app, render_template, abort, request, redirect, url_for
 from flask_login import current_user, login_required
 from table_operations.control import Control
@@ -11,7 +10,7 @@ def equipments_page():
     if request.method == "GET":
         equipments = []
         for equipment in db.equipment.get_table():
-            equipments.append((equipment, take_equipment_ids_and_names_by_equipment(equipment.eq_id), take_categories_by_equipment(equipment.eq_id)))
+            equipments.append((equipment, take_categories_by_equipment(equipment.eq_id)))
         return render_template("equipment/equipments.html", equipments=equipments, title="All equipments")
     else:
         form_equipment_keys = request.form.getlist("equipment_keys")
@@ -30,15 +29,15 @@ def equipment_page(equipment_key):
         return abort(404)
 
     # Take equipment and comments of this equipment
-    equipment = take_equipment_ids_and_names_by_equipment(equipment_key)
-    comments = take_comments_with_and_by(equipment_id=equipment_key)
+    equipments = db.equipment.get_row(equipment_key)
+    comments = take_comments_with_and_by(eq_id=equipment_key)
     categories = take_categories_by_equipment(equipment_key)
 
     # If the equipment page is displayed
     if request.method == "GET":
         # Blank comment form
         new_comment_values = {"comment_title": "", "comment_statement": ""}
-        return render_template("equipment/equipment.html", equipment=equipment, comments=comments, new_comment_values=new_comment_values, categories=categories)
+        return render_template("equipment/equipment.html", equipments=equipments, comments=comments, new_comment_values=new_comment_values, categories=categories)
     # If the new comment is added
     else:
         if not current_user.is_authenticated:
@@ -69,21 +68,20 @@ def equipment_add_page():
     categories = db.category.get_table()
 
     if request.method == "GET":
-        values = {"equipment_name": "", "explanation": "", "selected_category_ids": []}
+        values = {"eq_name": "", "eq_brand": "","selected_category_ids": []}
         return render_template("equipment/equipment_form.html", values=values, title="Equipment adding", err_message=err_message, categories=categories)
     else:
-        values = {"equipment_name": request.form["equipment_name"], "explanation": request.form["explanation"], "selected_category_ids": request.form.getlist("selected_category_ids")}
+        values = {"eq_name": request.form["eq_name"], "eq_brand": request.form["eq_brand"],"selected_category_ids": request.form.getlist("selected_category_ids")}
 
         # Invalid input control
         err_message = Control().Input().equipment(values)
         if err_message:
             return render_template("equipment/equipment_form.html", values=values, title="Equipment adding", err_message=err_message, categories=categories)
 
-        equipment = EquipmentObj(None, values["equipment_name"], values["explanation"])
+        equipment = EquipmentObj(None, values["eq_name"], values["eq_brand"])
 
-        eq_id = db.equipment.add_equipment(equipment)
-        for category_id in values["selected_category_ids"]:
-            db.category.add(eq_id, category_id)
+        db.equipment.add_equipment(equipment)
+
         return redirect(url_for("equipments_page"))
 
 
@@ -103,25 +101,25 @@ def equipment_edit_page(equipment_key):
             return abort(404)
 
         selected_category_ids = []
-        for category in db.category.get_table(where_columns="EQ_ID", where_values=equipment.eq_id):
-            selected_category_ids.append(category.category_id)
+        for category in db.equipment.get_table(where_columns="EQ_ID", where_values=equipment.eq_id):
+            selected_category_ids.append(category.cat_id)
 
-        values = {"equipment_name": equipment.equipment_name, "explanation": equipment.explanation, "selected_category_ids": selected_category_ids}
+        values = {"eq_name": equipment.eq_name, "eq_brand": equipment.eq_brand, "eq_image": equipment.eq_image, "selected_category_ids": selected_category_ids}
         return render_template("equipment/equipment_form.html", values=values, title="Equipment editing", err_message=err_message, categories=categories)
     else:
-        values = {"equipment_name": request.form["equipment_name"], "explanation": request.form["explanation"], "selected_category_ids": request.form.getlist("selected_category_ids")}
+        values = {"eq_name": request.form["eq_name"], "eq_brand": request.form["eq_brand"], "eq_image": request.form["eq_image"],"selected_category_ids": request.form.getlist("selected_category_ids")}
 
         # Invalid input control
         err_message = Control().Input().equipment(values)
         if err_message:
             return render_template("equipment/equipment_form.html", values=values, title="Equipment adding", err_message=err_message, categories=categories)
 
-        equipment = EquipmentObj(None, values["equipment_name"], values["explanation"])
+        equipment = EquipmentObj(None, values["eq_name"], values["eq_brand"], values["eq_image"], values["cat_id"])
         eq_id = db.equipment.update(equipment_key, equipment)
 
-        db.category.delete(where_columns="EQ_ID", where_values=[eq_id])
+        db.equipment.delete(where_columns="EQ_ID", where_values=[eq_id])
         for category_id in values["selected_category_ids"]:
-            db.category.add(eq_id, category_id)
+            db.equipment.add(eq_id, category_id)
         return redirect(url_for("equipment_page", equipment_key=equipment_key))
 
 
@@ -138,14 +136,6 @@ def equipment_delete_page(equipment_key):
 def take_categories_by_equipment(eq_id):
     db = current_app.config["db"]
     categories = []
-    for equipment_category in db.category.get_table(where_columns="EQ_ID", where_values=eq_id):
-        categories.append(db.category.get_row(where_columns="CATEGORY_ID", where_values=equipment_category.category_id))
+    for equipment_category in db.equipment.get_table(where_columns="EQ_ID", where_values=eq_id):
+        categories.append(db.equipment.get_row(where_columns="CAT_ID", where_values=equipment_category.cat_id))
     return categories
-
-
-def  take_equipment_ids_and_names_by_equipment(eq_id):
-    db = current_app.config["db"]
-    equipment_ids_names = []
-    for equipment in db.equipment.get_table(where_columns="EQ_ID", where_values=eq_id):
-        equipment_ids_names.append((equipment.eq_id, equipment.equipment_name))
-    return  equipment_ids_names

@@ -4,7 +4,6 @@ from forms import LoginForm, SignUpForm
 from passlib.hash import pbkdf2_sha256 as hasher
 from views.customer_view import customer_take_info_from_form
 
-
 def login_page():
     form = LoginForm()
     if form.validate_on_submit():
@@ -14,7 +13,7 @@ def login_page():
         if user is not None and user.is_active:
             password = form.data["password"]
             remember = form.data["remember_me"]
-            if hasher.verify(password, user.password):
+            if hasher.verify(password, user.password_hash):
                 login_user(user, remember)
                 flash("You have logged in successfully", "success")
                 next_page = request.args.get("next", url_for("home_page"))
@@ -47,8 +46,8 @@ def signup_page():
                 flash("This {} is already in use".format(attr.lower()), 'danger')
                 return render_template("customer/signup.html", form=form)
 
-        
-        customer_id = db.customer.add(*values[0], True)
+        person_id = db.person.add(*values[0])
+        customer_id = db.customer.add(person_id, *values[1], True)
         db.transaction.add_empty(customer_id)
 
         flash("You have registered successfully", "success")

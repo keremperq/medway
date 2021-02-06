@@ -13,7 +13,7 @@ def customers_page():
     return render_template("customer/customers.html", customers=customers)
 
 def customer_take_info_from_form(form):
-    return [form.data["c_name"], form.data["c_surname"], form.data["c_username"], form.data["c_email"], form.data["c_phone"], hasher.hash(form.data["c_password"])]
+    return ([form.data["p_name"], form.data["p_surname"]], [form.data["c_username"], form.data["c_email"], hasher.hash(form.data["c_password"]), form.data["c_phone"]])
 
 @login_required
 def edit_customer_page(customer_id):
@@ -23,17 +23,19 @@ def edit_customer_page(customer_id):
 
     db = current_app.config["db"]
     customer_obj = db.customer.get_row("*", "CUSTOMER_ID", customer_id)
+    person_obj = db.person.get_row("*", "PERSON_ID", customer_obj.person_id)
 
     form = SignUpForm()
     if form.validate_on_submit():
         values = customer_take_info_from_form(form)
-        db.customer.update(["CUSTOMER_NAME","SURNAME","USERNAME", "EMAIL", "PHONE", "PASSWORD"], values[0], "CUSTOMER_ID", customer_id)
+        db.person.update(["PERSON_NAME", "SURNAME"], values[0], "PERSON_ID", person_obj.person_id)
+        db.customer.update(["USERNAME", "EMAIL", "PASS_HASH", "PHONE"], values[1], "CUSTOMER_ID", customer_id)
 
         flash("Informations are updated successfully", "success")
         next_page = request.args.get("next", url_for("home_page"))
         return redirect(next_page)
 
-    return render_template("customer/customer_edit_form.html", form=form, customer=customer_obj)
+    return render_template("customer/customer_edit_form.html", form=form, person=person_obj, customer=customer_obj)
 
 @login_required
 def delete_customer_page(customer_id):

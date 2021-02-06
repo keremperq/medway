@@ -1,9 +1,8 @@
-from table_operations.all_equipment.eq_cooler import Eq_cooler
 from flask import current_app, render_template, abort, request, redirect, url_for
 from flask_login import current_user, login_required
 from table_operations.control import Control
 from tables import ProductObj, TransactionProductObj
-from views.equipment_view import take_categories_by_equipment,  take_equipment_ids_and_names_by_equipment
+from views.equipment_view import take_categories_by_equipment
 
 
 def products_page():
@@ -21,7 +20,6 @@ def product_page(eq_id):
     # Take product information
     equipment = db.equipment.get_row(eq_id)
     product = db.product.get_row(eq_id)
-    equipment_names = take_equipment_ids_and_names_by_equipment(eq_id)
     categories = take_categories_by_equipment(eq_id)
 
     # If there is not product, or equipment with this equipment_key and abort 404 page
@@ -32,7 +30,7 @@ def product_page(eq_id):
     if request.method == "GET":
         # Blank buying form
         buying_values = {}
-        return render_template("product/product.html", title=(equipment.equipment_name+" Product Page"), product=product, equipment=equipment, equipments=equipment_names,s=equipment_names,categories=categories, buying_values=buying_values)
+        return render_template("product/product.html", title=(equipment.eq_name+" Product Page"), product=product, equipment=equipment,categories=categories, buying_values=buying_values)
     # If it is added to shopping cart
     else:
         if not current_user.is_authenticated or not product.is_active:
@@ -46,8 +44,7 @@ def product_page(eq_id):
         # Invalid input control
         err_message = Control().Input().buying(buying_values, transaction_product=transaction_product, product=product)
         if err_message:
-            return render_template("product/product.html", title=(equipment.equipment_name+" Product Page"), product=product, equipment=equipment, equipments=equipment_names, categories=categories, buying_values=buying_values, err_message=err_message)
-
+            return render_template("product/product.html", title=(equipment.eq_name+" Product Page"), product=product, equipment=equipment, categories=categories, buying_values=buying_values, err_message=err_message)
         # Add product to shopping cart
         if db.transaction_product.get_row(where_columns=["TRANSACTION_ID", "EQ_ID"], where_values=[transaction_product.transaction_id, transaction_product.eq_id]):
             db.transaction_product.update(update_columns=["PIECE"], new_values=[transaction_product.piece], where_columns=["TRANSACTION_ID", "EQ_ID"], where_values=[transaction_product.transaction_id, transaction_product.eq_id])
