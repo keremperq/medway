@@ -8,8 +8,8 @@
 		{{ render_field(form.c_password, required=True,class='form-control',placeholder='Password') }}
 		{{ render_field(form.c_email, required=True,class='form-control',placeholder='E-Mail', value=customer.email) }}
 		{{ render_field(form.c_phone, required=True,class='form-control',placeholder='Phone', value=customer.phone) }}
-		{{ render_field(form.c_name, required=True,class='form-control',placeholder='Name', value=customer.customer_name) }}
-		{{ render_field(form.c_surname, required=True,class='form-control',placeholder='Surname', value=customer.surname) }}
+		{{ render_field(form.p_name, required=True,class='form-control',placeholder='Name', value=person.person_name) }}
+		{{ render_field(form.p_surname, required=True,class='form-control',placeholder='Surname', value=person.person_surname) }}
 		<button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
 	</form>
 </div>

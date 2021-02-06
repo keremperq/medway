@@ -13,7 +13,7 @@
         </tr>
         <tr>
           <td><b>Categories: </b></td>
-          <td>{% for category in categories %}<a href="{{ url_for('equipments_by_category_page', category_id=category.cat_id) }}">{{ category.cat_name }}</a>, {% endfor %}</td>
+          <td>{% for category in categories %}<a href="{{ url_for('equipments_by_category_page', cat_id=category.cat_id) }}">{{ category.cat_name }}</a>, {% endfor %}</td>
         </tr>
         <tr>
           <td><b>Brand: </b></td>

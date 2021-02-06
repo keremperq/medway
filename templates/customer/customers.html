@@ -10,6 +10,7 @@
         <table id="mytable" class="table table-bordred table-striped">
           <thead>
             <th>Customer_ID</th>
+            <th>Person_ID</th>
             <th>Username</th>
             <th>E-mail</th>
             <th>Phone</th>
@@ -22,14 +23,15 @@
           <tbody>
             {% for customer in customers %}
             <tr>
-              <td>{{ customer.customer_id }}</td>
+              <td>{{ customer.id }}</td>
+              <td>{{ customer.person_id }}</td>
               <td>{{ customer.username }}</td>
               <td>{{ customer.email }}</td>
               <td>{{ customer.phone }}</td>
               <td>{{ customer.is_active }}</td>
               {% if current_user.is_admin %}
-              <td><a href="{{ url_for('edit_customer_page', customer_id=customer.customer_id) }}"><p title="Edit"><span class="glyphicon glyphicon-pencil btn btn-primary btn-xs"></span></p></a></td>
-              <td><a href="{{ url_for('delete_customer_page', customer_id=customer.customer_id) }}"><p title="Delete"><span class="glyphicon glyphicon-trash btn btn-danger btn-xs"></span></p></a></td>
+              <td><a href="{{ url_for('edit_customer_page', customer_id=customer.id) }}"><p title="Edit"><span class="glyphicon glyphicon-pencil btn btn-primary btn-xs"></span></p></a></td>
+              <td><a href="{{ url_for('delete_customer_page', customer_id=customer.id) }}"><p title="Delete"><span class="glyphicon glyphicon-trash btn btn-danger btn-xs"></span></p></a></td>
               {% endif %}
             </tr>
             {% endfor %}

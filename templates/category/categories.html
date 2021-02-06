@@ -17,7 +17,7 @@
             <tbody>
               {% for category in categories %}
               <tr>
-                <td><a href="{{ url_for('equipments_by_category_page', category_id=category.cat_id) }}" class="glyphicon glyphicon-search btn btn-primary btn-xs"></a></td>
+                <td><a href="{{ url_for('equipments_by_category_page', cat_id=category.cat_id) }}" class="glyphicon glyphicon-search btn btn-primary btn-xs"></a></td>
                 <td>{{ category.cat_id }}</td>
                 <td>{{ category.cat_name }}</td>
               </tr>
