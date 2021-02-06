@@ -1,7 +1,8 @@
 from flask import Flask, abort, render_template
 from flask_login import LoginManager
 from database import Database
-from views import *
+from views import address_view, category_view, comment_view, customer_view, eq_case_view,eq_cooler_view,eq_headset_view,eq_keyboard_view,eq_monitor_view,eq_motherboard_view,eq_mouse_view,eq_powersupply_view,eq_processor_view,eq_ram_view,eq_videocard_view,equipment_view,general_views,login_view,product_view,transaction_view
+
 
 lm = LoginManager()
 db = Database()
@@ -9,7 +10,6 @@ db = Database()
 @lm.user_loader
 def load_user(user_id):
     return db.customer.get_row("*", "CUSTOMER_ID", user_id)
-
 
 @lm.unauthorized_handler
 def unauthorized_access():

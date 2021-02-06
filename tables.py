@@ -8,6 +8,11 @@ class EquipmentObj:
         self.eq_image = eq_image
         self.cat_id = cat_id
 
+class PersonObj:
+    def __init__(self, person_id=None, person_name="", person_surname=""):
+        self.person_id = person_id
+        self.person_name = person_name
+        self.person_surname = person_surname
 
 class AddressObj:
     def __init__(self, address_id, address_name, country, city, neighborhood, street, address_no, zipcode, explanation):
@@ -21,6 +26,10 @@ class AddressObj:
         self.zipcode = zipcode
         self.explanation = explanation
 
+class CustomerAddressObj:
+    def __init__(self, customer_id, address_id):
+        self.customer_id = customer_id
+        self.address_id = address_id
 
 class CategoryObj:
     def __init__(self, cat_id, cat_name):
@@ -40,18 +49,16 @@ class CommentObj:
 
 
 class CustomerObj(UserMixin):
-    def __init__(self, customer_id, customer_name,surname, username, email, password, phone, address_id,active=True):
+    def __init__(self, customer_id, person_id, username, email, password_hash, phone, active=True):
         self.id = customer_id
-        self.customer_name = customer_name
-        self.surname = surname
+        self.person_id = person_id
         self.username = username
         self.email = email
-        self.password = password
+        self.password_hash = password_hash
         self.phone = phone
-        self.address_id = address_id
         self.active = active
         self.is_admin = self.id == 1     # To make user with customer_id = 1 admin
-
+        
 
 class ProductObj:
     def __init__(self, eq_id, remaining, price, number_of_sells, explanation, is_active, supp_id):

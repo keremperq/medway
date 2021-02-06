@@ -1,4 +1,4 @@
-from table_operations import address, category, comment, customer, equipment, product, supplier, transaction, transaction_product, control
+from table_operations import address, category, comment, customer, person, customer_address,equipment, product, supplier, transaction, transaction_product, control
 from table_operations.all_equipment import eq_case, eq_cooler, eq_headset, eq_keyboard, eq_monitor, eq_motherboard, eq_mouse, eq_powersupply, eq_processor, eq_ram, eq_videocard
 
 class Database:
@@ -6,7 +6,9 @@ class Database:
         self.address = address.Address()
         self.category = category.Category()
         self.comment = comment.Comment()
+        self.person = person.Person()
         self.customer = customer.Customer()
+        self.customer_address = customer_address.CustomerAddress()
         self.equipment = equipment.Equipment()
         self.product = product.Product()
         self.supplier = supplier.Supplier()

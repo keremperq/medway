@@ -2,6 +2,9 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
 from wtforms.validators import InputRequired, Length, Email, Optional
 
+class PersonForm(FlaskForm):
+    p_name = StringField("Name", validators=[InputRequired("Please enter author's name"), Length(1, 30, "Name can not be longer than %(max)d character")], id='person_name')
+    p_surname = StringField("Surname", validators=[InputRequired("Please enter author's surname"), Length(1, 30, "Surname can not be longer than %(max)d character")], id='person_surname')
 
 class LoginForm(FlaskForm):
     username = StringField("Username", validators=[InputRequired("Please enter your username"), Length(5, 30)], id='username')
@@ -9,13 +12,7 @@ class LoginForm(FlaskForm):
     remember_me = BooleanField("Remember me", default=False, id='remember_me')
     submit = SubmitField("Login")
 
-
-class CustomerForm(FlaskForm):
-    c_name = StringField("Name", validators=[InputRequired("Please enter author's name"), Length(1, 30, "Name can not be longer than %(max)d character")], id='customer_name')
-    c_surname = StringField("Surname", validators=[InputRequired("Please enter author's surname"), Length(1, 30, "Surname can not be longer than %(max)d character")], id='surname')
-    
-
-class SignUpForm(CustomerForm):
+class SignUpForm(PersonForm):
     c_username = StringField("Username", validators=[InputRequired("Please enter your username"), Length(5, 30, "Username length must be between %(min)d and %(max)d character")], id='customer_username')
     c_email = StringField("E-mail", validators=[Email("You must provide a valid mail address"), Length(3, 50, "Email can not be longer than %(max)d character")], id='customer_email')
     c_password = PasswordField("Password", validators=[InputRequired("Please enter your password"), Length(6, 20, "Password length must be between %(min)d and %(max)d character")], id='customer_password')
